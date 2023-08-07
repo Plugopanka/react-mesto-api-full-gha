@@ -1,0 +1,31 @@
+.sign__input {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  background: none;
+  padding: 0 0 8px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.sign__input:focus {
+  outline: 1px solid rgba(84, 84, 84, 0.2);
+}
+
+.sign__input:first-of-type {
+  margin: 50px 0 0;
+}
+
+@media screen and (max-width: 630px) {
+  .sign__input:first-of-type {
+    margin: 75px 0 0;
+  }
+}
