@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
+const cors = require('cors');
 
 require('dotenv').config();
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -10,6 +11,10 @@ const { ERROR_ON_SERVER } = require('./errors/errors');
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
+app.use(cors({
+  origin: "http://localhost:3001"
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -43,10 +43,11 @@ function App() {
   }
 
   useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
     isLoggedIn &&
-      Promise.all([api.getUserData(), api.getCards()])
-        .then(([userData, cardData]) => {
-          setCurrentUser(userData);
+      api
+        .getCards(jwt)
+        .then((cardData) => {
           setCards(cardData);
         })
         .catch((err) => {
@@ -63,7 +64,9 @@ function App() {
       return i._id === currentUser._id;
     });
 
-    (isLiked ? api.deleteLike(card._id) : api.putLike(card._id))
+    const jwt = localStorage.getItem("jwt");
+
+    (isLiked ? api.deleteLike(card._id, jwt) : api.putLike(card._id, jwt))
       .then((newCard) => {
         const newCards = cards.map((card) =>
           card._id === newCard._id ? newCard : card
@@ -76,8 +79,9 @@ function App() {
   }
 
   function handleCardDelete(card) {
+    const jwt = localStorage.getItem("jwt");
     api
-      .deleteNewCard(card._id)
+      .deleteNewCard(card._id, jwt)
       .then(() => {
         const newCards = cards.filter((element) => {
           return element._id !== card._id;
@@ -92,8 +96,9 @@ function App() {
 
   function handleUpdateUser({ name, about }) {
     setIsLoading(true);
+    const jwt = localStorage.getItem("jwt");
     api
-      .patchUserInfo(name, about)
+      .patchUserInfo(name, about, jwt)
       .then((data) => {
         setCurrentUser(data);
       })
@@ -106,8 +111,9 @@ function App() {
 
   function handleUpdateAvatar(avatar) {
     setIsLoading(true);
+    const jwt = localStorage.getItem("jwt");
     api
-      .patchUserAvatar(avatar)
+      .patchUserAvatar(avatar, jwt)
       .then((data) => {
         setCurrentUser(data);
       })
@@ -120,8 +126,9 @@ function App() {
 
   function handleAddPlaceSubmit({ name, link }) {
     setIsLoading(true);
+    const jwt = localStorage.getItem("jwt");
     api
-      .postNewCard(name, link)
+      .postNewCard(name, link, jwt)
       .then((newCard) => {
         setCards([newCard, ...cards]);
       })
@@ -143,7 +150,8 @@ function App() {
         .checkToken(jwt)
         .then((res) => {
           setIsLoggedIn(true);
-          setUserEmail(res.data.email);
+          setCurrentUser(res);
+          setUserEmail(res.email);
           navigate("/", { replace: true });
         })
         .catch((err) => {

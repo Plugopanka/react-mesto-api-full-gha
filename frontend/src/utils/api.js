@@ -11,81 +11,73 @@ class Api {
     return res.json();
   }
 
-  getCards() {
+  getCards(token) {
     return fetch(`${this._url}/cards`, {
-      headers: this._headers,
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
     }).then((res) => {
       return this._returnPromiseStatus(res);
     });
   }
 
-  getUserData() {
-    return fetch(`${this._url}/users/me`, {
-      headers: this._headers,
-    }).then((res) => {
-      return this._returnPromiseStatus(res);
-    });
-  }
-
-  getLikes() {
+  getLikes(token) {
     return fetch(`${this._url}/cards/likes`, {
-      headers: this._headers,
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
     }).then((res) => {
       return this._returnPromiseStatus(res);
     });
   }
 
-  putLike(cardId) {
+  putLike(cardId, token) {
     return fetch(`${this._url}/cards/${cardId}/likes `, {
       method: "PUT",
-      headers: this._headers,
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
     }).then((res) => {
       return this._returnPromiseStatus(res);
     });
   }
 
-  deleteLike(cardId) {
+  deleteLike(cardId, token) {
     return fetch(`${this._url}/cards/${cardId}/likes `, {
       method: "DELETE",
-      headers: this._headers,
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
     }).then((res) => {
       return this._returnPromiseStatus(res);
     });
   }
 
-  postNewCard(name, link) {
+  postNewCard(name, link, token) {
     return fetch(`${this._url}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
       body: JSON.stringify({ name, link }),
     }).then((res) => {
       return this._returnPromiseStatus(res);
     });
   }
 
-  deleteNewCard(cardId) {
+  deleteNewCard(cardId, token) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
     }).then((res) => {
       return this._returnPromiseStatus(res);
     });
   }
 
-  patchUserInfo(name, about) {
+  patchUserInfo(name, about, token) {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
       body: JSON.stringify({ name, about }),
     }).then((res) => {
       return this._returnPromiseStatus(res);
     });
   }
 
-  patchUserAvatar(avatar) {
+  patchUserAvatar(avatar, token) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
       body: JSON.stringify({ avatar }),
     }).then((res) => {
       return this._returnPromiseStatus(res);
@@ -94,10 +86,10 @@ class Api {
 }
 
 const api = new Api({
-  url: "https://nomoreparties.co/v1/cohort-65",
+  url: "http://localhost:3000",
   headers: {
-    authorization: "d0b175f3-b7bd-4d1e-af37-189224954b9b",
-    "Content-Type": "application/json",}
-})
+    "Content-Type": "application/json",
+  },
+});
 
 export default api;

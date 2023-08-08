@@ -11,14 +11,14 @@ const RequestConflict = require('../errors/RequestConflict');
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send({ data: users }))
+    .then((users) => res.send(users))
     .catch(next);
 };
 
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(() => new NotFoundError('Пользователь с указанным _id не найден'))
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'CastError') {
         return next(new BadRequestError('Передан некорректный _id пользователя'));
@@ -41,7 +41,7 @@ module.exports.createUser = (req, res, next) => {
       about,
       avatar,
     }))
-    .then((user) => res.status(STATUS_CODE_POST).send({ data: user }))
+    .then((user) => res.status(STATUS_CODE_POST).send(user))
     .catch((err) => {
       if (err.code === 11000) {
         return next(new RequestConflict('Пользователь с таким email уже существует'));
@@ -62,7 +62,7 @@ module.exports.createUser = (req, res, next) => {
 module.exports.getUserId = (req, res, next) => {
   User.findById(req.params.userId)
     .orFail(() => new NotFoundError('Пользователь с указанным _id не найден'))
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'CastError') {
         return next(new BadRequestError('Передан некорректный _id пользователя'));
@@ -83,7 +83,7 @@ module.exports.changeUserInfo = (req, res, next) => {
     },
   )
     .orFail(() => new NotFoundError('Пользователь с указанным _id не найден'))
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(
@@ -108,7 +108,7 @@ module.exports.changeUserAvatar = (req, res, next) => {
     },
   )
     .orFail(() => new NotFoundError('Пользователь с указанным _id не найден'))
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(
