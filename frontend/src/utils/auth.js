@@ -1,5 +1,5 @@
 // export const BASE_URL = "http://localhost:3000";
-export const BASE_URL = "https:api.nomoremesto.nomoreparties.co";
+export const BASE_URL = "https://api.nomoremesto.nomoreparties.co";
 
 function returnPromiseStatus(res) {
   if (!res.ok) {
