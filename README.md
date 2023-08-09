@@ -9,6 +9,6 @@
 
 IP-адрес 130.193.34.210
 
-Frontend https://http://nomoremesto.nomoreparties.co
+Frontend https://nomoremesto.nomoreparties.co
 
-Backend https://http://api.nomoremesto.nomoreparties.co
+Backend https://api.nomoremesto.nomoreparties.co
