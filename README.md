@@ -7,7 +7,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 130.193.34.210
+IP 130.193.34.210
 
 Frontend https://nomoremesto.nomoreparties.co
 
