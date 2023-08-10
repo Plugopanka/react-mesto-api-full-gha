@@ -48,6 +48,7 @@ function App() {
       api
         .getCards(jwt)
         .then((cardData) => {
+          cardData.reverse();
           setCards(cardData);
         })
         .catch((err) => {
@@ -61,7 +62,7 @@ function App() {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => {
-      return i._id === currentUser._id;
+      return i === currentUser._id;
     });
 
     const jwt = localStorage.getItem("jwt");
@@ -77,6 +78,11 @@ function App() {
         console.log(`Ошибка загрузки ${err}`);
       });
   }
+
+  // function handleDeleteButtonClick(card) {
+  //   setDeletedCard(card);
+  //   setIsSubmitPopupOpen(true);
+  // }
 
   function handleCardDelete(card) {
     const jwt = localStorage.getItem("jwt");
@@ -193,6 +199,7 @@ function App() {
                   onCardLike={handleCardLike}
                   onCardDelete={setDeletedCard}
                   onCardSubmit={setIsSubmitPopupOpen}
+                  // onCardSubmit={handleDeleteButtonClick}
                 />
               }
             />
